@@ -9,7 +9,6 @@ Daemons.run_proc('edurange-scorer',
   #:log_output => true) 
 ) do
     loop do
-      submitted = []
       loginfo = ""
 
       # download and clean up the scenario answers
@@ -27,6 +26,7 @@ Daemons.run_proc('edurange-scorer',
       # this happens on a per scorable instance basis
       scoring_pages = scoring_pages_url.read.split("\n")
       scoring_pages.each do |s|
+        submitted = []
         points = 0
         s = URI.parse(s)
 
