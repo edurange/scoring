@@ -40,12 +40,12 @@ Daemons.run_proc('edurange-scorer',
         submitted.reject! { |s| s.empty? }
         submitted.uniq!
 
-        answers.each do |answer|
-          submitted.each do |submitted_line|
-            if answer == submitted_line
-              loginfo += "'" + answer + "'" + " : " + "'" + submitted_line + "'" + "\n"
-              points += 1
-            end
+        submitted.each do |submitted_line|
+          if answers.include? submitted_line
+            loginfo += "'" + answer + "'" + " : " + "'" + submitted_line + "'" + "\n"
+            points += 1
+          else
+            points -= 1
           end
         end
 
