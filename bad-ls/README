@@ -1,0 +1,40 @@
+# Nick Stephens
+# ELF Infection Challenge
+
+CONTENTS:
+
+* socket.asm: 	x86 shellcode defining a parasite which forks and 
+		execve's /bin/sh listening on port 1337
+
+* bad-ls: 	a 32bit x86 binary of ls infected with the socket.asm shellcode
+
+* refresh: 	script for refreshing the infection (depends on elfit, expects a
+		32bit version of ls to be in PATH!)
+
+* Makefile:	more or less describes the infection process for those interested 
+		(depends on elfit and nasm)
+
+DESCRIPTION:
+
+	The bad-ls binary is a version of GNU-ls infected with the socket.asm parasite.
+	The binary was infected by replacing the ELF header entrypoint attribute with 
+	the virtual address of the parasite code. A text-padding infection was used to 
+	inject the parasite code. When the parasite code completes execution it returns 
+	to the original entrypoint.
+
+HINTS:
+	helpful tools for diagnosing the infection:
+		* objdump
+		[ objdump -D will include the parasite code at the very bottom ]
+		* readelf 
+		[ readelf -h will show the ELF header revealing the entrypoint ]
+		* strace
+		[ strace will show the invokation of a suspicous fork() ]
+
+	elfit output:
+	[+ TEXT_PAD INJECT]	Patching parasite to jmp to 0x804c080
+	[+ ENTRY_POINT REDIR]	Patching host's entrypoint to 0x8061cd8
+
+
+elfit is an ELF infection tool I wrote:
+https://github.com/nickstephens/elfit
