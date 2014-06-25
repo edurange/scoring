@@ -2,5 +2,5 @@
 
 cp $(which ls) clean-ls
 cp clean-ls bad-ls
-elfit -p socket --entry --text bad-ls 2>/tmp/elfit-output
+elfit -p socket --entry --text bad-ls 1>/tmp/elfit-output
 exit 0
