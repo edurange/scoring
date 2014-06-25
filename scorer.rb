@@ -42,7 +42,7 @@ Daemons.run_proc('edurange-scorer',
 
         submitted.each do |submitted_line|
           if answers.include? submitted_line
-            loginfo += "'" + answer + "'" + " : " + "'" + submitted_line + "'" + "\n"
+            loginfo += submitted_line + "\n"
             points += 1
           else
             points -= 1
