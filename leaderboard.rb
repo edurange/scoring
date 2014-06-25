@@ -3,7 +3,7 @@ require 'sinatra'
 # run from points dir
 get '/' do
   teams = {}
-  Dir.foreach('.') do |filename|
+  Dir.foreach('/tmp/scoring/points') do |filename|
     next if filename == "." || filename == '..'
     score = File.read(filename).to_i
     team = filename.match(/Team_\d+/).to_s
